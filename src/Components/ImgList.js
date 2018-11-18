@@ -19,11 +19,7 @@ const ImgList = props => {
 	} else {
 		imgs = <NoImgs />;
 	}
-	return (
-		<div className="wrapper">
-		{imgs}
-		</div>
-	);
+	return imgs;
 };
 
 export default ImgList;
