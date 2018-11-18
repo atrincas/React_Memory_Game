@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Img = props =>
+const Card = props =>
 	<div className="card-container">
 		<div className="card">
-			<div className="front">?</div>
+			<div className="front"></div>
 			<div className="back">
 				<img src={props.url} alt="Memory Card" className="card-image" />
 				<div className="flex-container">
@@ -14,4 +14,4 @@ const Img = props =>
 		</div>
 	</div>;
 
-export default Img;
+export default Card;

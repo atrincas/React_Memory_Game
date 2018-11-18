@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import cred from './Components/cred';
-import ImgList from './Components/ImgList';
+import CardList from './Components/CardList';
 
 import './App.css';
 
@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
   super(props);
   this.state = {
-    imgs : [
+    cards : [
     {
     "id": "Frerby5o1T4",
     "created_at": "2017-04-25T02:23:49-04:00",
@@ -706,19 +706,20 @@ class App extends Component {
     ]
   }
 ],
+    cardsCopy : [],
     loadingState : false
     }
 
   }
 
 componentWillMount() {
-
+  console.log('willmount',this.state.cards);
   // axios
   //   .get(
   //       `https://api.unsplash.com/search/photos/?page=1&per_page=12&query='water'&client_id=${cred._applicationId}`
   //     )
   //   .then(data => {
-  //     this.setState({imgs : data.data.results, loadingState : false});
+  //     this.setState({cards : data.data.results, loadingState : false});
   //     })
   //   .catch(err => {
   //     console.log('Error happened during fetching!', err);
@@ -728,12 +729,52 @@ componentWillMount() {
 
 }
 
+componentDidMount() {
+  var arr = this.state.cards,
+      arr2 = arr.slice();
+
+  this.shuffle(arr,'cards');
+  this.shuffle(arr2,'cardsCopy');
+}
+
+// componentWillUpdate(prevProps, prevState) {
+//   console.log('componentWillUpdate', this.state.cards);
+//   if(prevState.cards !== this.state.cards) {
+//     console.log('prevState', prevState.cards);
+//   }
+// }
+
+shuffle = (array, cards) => {
+  var arr = array;
+  var currentIndex = arr.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = arr[currentIndex];
+    arr[currentIndex] = arr[randomIndex];
+    arr[randomIndex] = temporaryValue;
+  }
+  
+  // Check to see which state.cards has to be modified:
+  if(cards === 'cards') {
+    this.setState({cards : arr});
+  } else if(cards === 'cardsCopy') {
+    this.setState({cardsCopy : arr});
+  }
+  
+}
+
   render() {
     return (
       <div className="App">
         <div className="wrapper">
-          <ImgList data={this.state.imgs} />
-          <ImgList data={this.state.imgs} />
+          <CardList data={this.state.cards} />
+          <CardList data={this.state.cardsCopy} />
         </div>
       </div>
     );
