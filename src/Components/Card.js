@@ -2,7 +2,7 @@ import React from 'react';
 
 const Card = props =>
 	<div className="card-container">
-		<div className="card">
+		<div className={props.className} onClick={props.onClick} data-card={props.id}>
 			<div className="front"></div>
 			<div className="back">
 				<img src={props.url} alt="Memory Card" className="card-image" />

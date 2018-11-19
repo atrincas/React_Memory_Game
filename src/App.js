@@ -6,6 +6,9 @@ import CardList from './Components/CardList';
 
 import './App.css';
 
+function increaseClicked(state,props) {
+  return {clicked : state.clicked + 1};
+}
 class App extends Component {
 
   constructor(props) {
@@ -707,7 +710,12 @@ class App extends Component {
   }
 ],
     cardsCopy : [],
-    loadingState : false
+    loadingState : false,
+    score : 0,
+    attempts : null,
+    clicked : null,
+    firstGuess : null,
+    secondGuess : null
     }
 
   }
@@ -730,9 +738,9 @@ componentWillMount() {
 }
 
 componentDidMount() {
+  //Make a copy of the cards array and shuffle both arrays:
   var arr = this.state.cards,
       arr2 = arr.slice();
-
   this.shuffle(arr,'cards');
   this.shuffle(arr2,'cardsCopy');
 }
@@ -743,6 +751,24 @@ componentDidMount() {
 //     console.log('prevState', prevState.cards);
 //   }
 // }
+
+onClick = (e) => {
+    // Add class is-flipped to turn front card 180 degrees:
+    e.currentTarget.classList.toggle('is-flipped');
+    console.log(e.currentTarget);
+    debugger
+    // Check if firstGuess is not set:
+    if(!this.state.clicked) {
+      var firstGuess = e.currentTarget.dataset.card;
+      this.handleIncreaseClicked();
+      this.setState({firstGuess});
+    } else {
+      console.log('this is the second guess');
+      var secondGuess = e.currentTarget.dataset.card;
+      this.setState({secondGuess, clicked : this.state.clicked+1});
+      this.match();
+    }    
+  }
 
 shuffle = (array, cards) => {
   var arr = array;
@@ -760,7 +786,7 @@ shuffle = (array, cards) => {
     arr[randomIndex] = temporaryValue;
   }
   
-  // Check to see which state.cards has to be modified:
+  // Check to see which state.cards array has to be modified:
   if(cards === 'cards') {
     this.setState({cards : arr});
   } else if(cards === 'cardsCopy') {
@@ -769,12 +795,55 @@ shuffle = (array, cards) => {
   
 }
 
+handleIncreaseClicked() {
+    this.setState((prevState,props) => {
+      return {clicked : prevState.clicked + 1};
+    });
+  }
+
+match = () => {
+    var firstGuess = this.state.firstGuess,
+        secondGuess = this.state.secondGuess;
+    
+    if(firstGuess && secondGuess) {
+
+      if(firstGuess === secondGuess) {
+        // Add score:
+        this.setState({score : this.state.score + 1});
+        var selected = document.getElementsByClassName('is-flipped');
+        //add class match and remove class is-flipped:
+        while (selected.length > 0) {
+          selected.item(0).classList.add('match');
+          selected[0].classList.remove('is-flipped');
+        }
+        this.resetCards();
+
+      } else {
+        //Reset the cards back to initial position:
+        this.timeout = setTimeout(() => {
+          this.resetCards();
+        },1000);
+      }
+    }
+    
+  }
+
+  resetCards = () => {
+    this.setState({clicked : null, attempts : this.state.attempts + 1, firstGuess : null, secondGuess : null});
+    var selected = document.getElementsByClassName('is-flipped');
+    console.log(selected);
+    //Remove class is-flipped
+    while(selected.length > 0) {
+      selected[0].classList.remove('is-flipped');
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <div className="wrapper">
-          <CardList data={this.state.cards} />
-          <CardList data={this.state.cardsCopy} />
+          <CardList data={this.state.cards} className={'card'} clickHandler={this.onClick.bind(this)} />
+          <CardList data={this.state.cardsCopy} className={'card'} clickHandler={this.onClick.bind(this)} />
         </div>
       </div>
     );

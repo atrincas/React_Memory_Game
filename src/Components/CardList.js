@@ -12,11 +12,14 @@ const CardList = props => {
 	if (results.length > 0) {
 		cards = results.map(img =>
 			<Card
+				id={img.id}
 				url={img.urls.small}
 				user={img.user.links.html}
 				name={img.user.name}
 				link={img.links.html}
 				key={uuidv1()}
+				onClick={props.clickHandler}
+				className={props.className}
 			/>
 		);
 	} else {

@@ -28,7 +28,7 @@
 	height: 80%;
 }
 
-.card:hover {
+.card.is-flipped {
 	transform: rotateY(180deg);
 }
 
