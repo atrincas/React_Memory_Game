@@ -6,9 +6,7 @@ import CardList from './Components/CardList';
 
 import './App.css';
 
-function increaseClicked(state,props) {
-  return {clicked : state.clicked + 1};
-}
+
 class App extends Component {
 
   constructor(props) {
@@ -715,9 +713,10 @@ class App extends Component {
     attempts : null,
     clicked : null,
     firstGuess : null,
-    secondGuess : null
+    secondGuess : null,
+    activeCard : 100
     }
-
+this.clickHandler = this.clickHandler.bind(this);
   }
 
 componentWillMount() {
@@ -745,6 +744,16 @@ componentDidMount() {
   this.shuffle(arr2,'cardsCopy');
 }
 
+componentWillUpdate() {
+  var selected = document.getElementsByClassName('is-flipped');
+  console.log('willupdate',selected[0]);
+}
+
+componentDidUpdate() {
+  var selected = document.getElementsByClassName('is-flipped');
+  console.log('didupdate',selected);
+}
+
 // componentWillUpdate(prevProps, prevState) {
 //   console.log('componentWillUpdate', this.state.cards);
 //   if(prevState.cards !== this.state.cards) {
@@ -752,11 +761,12 @@ componentDidMount() {
 //   }
 // }
 
-onClick = (e) => {
+clickHandler = (e) => {
     // Add class is-flipped to turn front card 180 degrees:
     e.currentTarget.classList.toggle('is-flipped');
-    console.log(e.currentTarget);
-    debugger
+    var selected = document.getElementsByClassName('is-flipped');
+    console.log('clickhandler',selected);
+    
     // Check if firstGuess is not set:
     if(!this.state.clicked) {
       var firstGuess = e.currentTarget.dataset.card;
@@ -831,7 +841,7 @@ match = () => {
   resetCards = () => {
     this.setState({clicked : null, attempts : this.state.attempts + 1, firstGuess : null, secondGuess : null});
     var selected = document.getElementsByClassName('is-flipped');
-    console.log(selected);
+    console.log('resetcards',selected);
     //Remove class is-flipped
     while(selected.length > 0) {
       selected[0].classList.remove('is-flipped');
@@ -839,11 +849,12 @@ match = () => {
   }
 
   render() {
+
     return (
       <div className="App">
         <div className="wrapper">
-          <CardList data={this.state.cards} className={'card'} clickHandler={this.onClick.bind(this)} />
-          <CardList data={this.state.cardsCopy} className={'card'} clickHandler={this.onClick.bind(this)} />
+          <CardList data={this.state.cards} className={'card'} clickHandler={this.clickHandler} />
+          <CardList data={this.state.cardsCopy} className={'card'} clickHandler={this.clickHandler} />
         </div>
       </div>
     );

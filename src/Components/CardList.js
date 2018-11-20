@@ -10,7 +10,7 @@ const CardList = props => {
 	const results = props.data;
 	let cards;
 	if (results.length > 0) {
-		cards = results.map(img =>
+		cards = results.map((img) =>
 			<Card
 				id={img.id}
 				url={img.urls.small}
@@ -21,7 +21,7 @@ const CardList = props => {
 				onClick={props.clickHandler}
 				className={props.className}
 			/>
-		);
+			);
 	} else {
 		cards = <NoCards />;
 	}
