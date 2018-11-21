@@ -18,6 +18,7 @@ const CardList = props => {
 				name={img.user.name}
 				link={img.links.html}
 				key={uuidv1()}
+				update={props.update}
 				onClick={props.clickHandler}
 				className={props.className}
 			/>

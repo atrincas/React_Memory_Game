@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import cred from './Components/cred';
-import CardList from './Components/CardList';
+import CardListOne from './Components/CardListOne';
+import CardListTwo from './Components/CardListTwo';
 
 import './App.css';
 
@@ -714,13 +715,22 @@ class App extends Component {
     clicked : null,
     firstGuess : null,
     secondGuess : null,
-    activeCard : 100
+    activeCard : 100,
+    update : false
     }
 this.clickHandler = this.clickHandler.bind(this);
   }
 
 componentWillMount() {
   console.log('willmount',this.state.cards);
+
+  //Make a copy of the cards array and shuffle both arrays:
+  var arr = this.state.cards,
+      arr2 = arr.slice();
+  this.shuffle(arr,'cards');
+  this.shuffle(arr2,'cardsCopy');
+  this.handleUpdate();
+
   // axios
   //   .get(
   //       `https://api.unsplash.com/search/photos/?page=1&per_page=12&query='water'&client_id=${cred._applicationId}`
@@ -737,21 +747,24 @@ componentWillMount() {
 }
 
 componentDidMount() {
-  //Make a copy of the cards array and shuffle both arrays:
-  var arr = this.state.cards,
-      arr2 = arr.slice();
-  this.shuffle(arr,'cards');
-  this.shuffle(arr2,'cardsCopy');
+  console.log('didmount')
 }
 
 componentWillUpdate() {
-  var selected = document.getElementsByClassName('is-flipped');
-  console.log('willupdate',selected[0]);
+  console.log('willupdate');
 }
 
-componentDidUpdate() {
-  var selected = document.getElementsByClassName('is-flipped');
-  console.log('didupdate',selected);
+componentDidUpdate(prevProps,prevState) {
+  console.log('didupdate', this.state.cardsCopy);
+}
+
+shouldComponentUpdate() {
+  //Makes sure the component CardList only re-renders when cards has to be resetted:
+  if(this.state.update) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 // componentWillUpdate(prevProps, prevState) {
@@ -764,9 +777,7 @@ componentDidUpdate() {
 clickHandler = (e) => {
     // Add class is-flipped to turn front card 180 degrees:
     e.currentTarget.classList.toggle('is-flipped');
-    var selected = document.getElementsByClassName('is-flipped');
-    console.log('clickhandler',selected);
-    
+
     // Check if firstGuess is not set:
     if(!this.state.clicked) {
       var firstGuess = e.currentTarget.dataset.card;
@@ -775,9 +786,10 @@ clickHandler = (e) => {
     } else {
       console.log('this is the second guess');
       var secondGuess = e.currentTarget.dataset.card;
-      this.setState({secondGuess, clicked : this.state.clicked+1});
-      this.match();
-    }    
+      this.handleIncreaseClicked();
+      //SetState the secondGuess and use callback to run this.match():
+      this.setState({secondGuess},() => this.match());
+    }   
   }
 
 shuffle = (array, cards) => {
@@ -811,6 +823,12 @@ handleIncreaseClicked() {
     });
   }
 
+handleUpdate() {
+    this.setState((prevState,props) => {
+      return {update : !prevState.update};
+    });
+  }
+
 match = () => {
     var firstGuess = this.state.firstGuess,
         secondGuess = this.state.secondGuess;
@@ -839,7 +857,7 @@ match = () => {
   }
 
   resetCards = () => {
-    this.setState({clicked : null, attempts : this.state.attempts + 1, firstGuess : null, secondGuess : null});
+    this.setState({clicked : null, attempts : this.state.attempts + 1, firstGuess : null, secondGuess : null, update : true});
     var selected = document.getElementsByClassName('is-flipped');
     console.log('resetcards',selected);
     //Remove class is-flipped
@@ -853,8 +871,8 @@ match = () => {
     return (
       <div className="App">
         <div className="wrapper">
-          <CardList data={this.state.cards} className={'card'} clickHandler={this.clickHandler} />
-          <CardList data={this.state.cardsCopy} className={'card'} clickHandler={this.clickHandler} />
+          <CardListOne dataOne={this.state.cards} className={'card'} clickHandler={this.clickHandler} />
+          <CardListTwo dataTwo={this.state.cardsCopy} className={'card'} clickHandler={this.clickHandler} />
         </div>
       </div>
     );
