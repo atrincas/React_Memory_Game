@@ -711,7 +711,7 @@ class App extends Component {
     cardsCopy : [],
     loadingState : false,
     score : 0,
-    attempts : null,
+    attempts : 0,
     clicked : null,
     firstGuess : null,
     secondGuess : null,
@@ -873,6 +873,10 @@ match = () => {
         <div className="wrapper">
           <CardListOne dataOne={this.state.cards} className={'card'} clickHandler={this.clickHandler} />
           <CardListTwo dataTwo={this.state.cardsCopy} className={'card'} clickHandler={this.clickHandler} />
+        </div>
+        <div className="score-board">
+          <h3>Attempts: {this.state.attempts}</h3>
+          <h3>Score: {this.state.score}</h3>
         </div>
       </div>
     );
