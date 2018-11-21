@@ -12,8 +12,18 @@ class CardListOne extends React.Component {
 		this.state = {
 			results : this.props.dataOne,
 			clickHandler : this.props.clickHandler,
-			className : this.props.className
+			className : this.props.className,
+			update : this.props.update
 		}
+	}
+
+	shouldComponentUpdate() {
+	  //Makes sure the component CardList only re-renders when cards has to be resetted:
+	  if(!this.state.update) {
+	    return true;
+	  } else {
+	    return false;
+	  }
 	}
 
 	render() {

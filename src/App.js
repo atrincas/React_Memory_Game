@@ -758,22 +758,6 @@ componentDidUpdate(prevProps,prevState) {
   console.log('didupdate', this.state.cardsCopy);
 }
 
-shouldComponentUpdate() {
-  //Makes sure the component CardList only re-renders when cards has to be resetted:
-  if(this.state.update) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-// componentWillUpdate(prevProps, prevState) {
-//   console.log('componentWillUpdate', this.state.cards);
-//   if(prevState.cards !== this.state.cards) {
-//     console.log('prevState', prevState.cards);
-//   }
-// }
-
 clickHandler = (e) => {
     // Add class is-flipped to turn front card 180 degrees:
     e.currentTarget.classList.toggle('is-flipped');
@@ -871,8 +855,8 @@ match = () => {
     return (
       <div className="App">
         <div className="wrapper">
-          <CardListOne dataOne={this.state.cards} className={'card'} clickHandler={this.clickHandler} />
-          <CardListTwo dataTwo={this.state.cardsCopy} className={'card'} clickHandler={this.clickHandler} />
+          <CardListOne dataOne={this.state.cards} update={this.state.update} className={'card'} clickHandler={this.clickHandler} />
+          <CardListTwo dataTwo={this.state.cardsCopy} update={this.state.update} className={'card'} clickHandler={this.clickHandler} />
         </div>
         <div className="score-board">
           <h3>Attempts: {this.state.attempts}</h3>
