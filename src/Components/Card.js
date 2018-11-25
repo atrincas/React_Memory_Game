@@ -7,8 +7,8 @@ const Card = props =>
 			<div className="back">
 				<img src={props.url} alt="Memory Card" className="card-image" />
 				<div className="flex-container">
-					<p>Photo by <a href={props.user}>{props.name}</a></p>
-					<p><a href={props.link}> See on Unsplash</a></p>
+					<p>Photo by <a href={props.user} target="_blank" rel="noopener noreferrer">{props.name}</a></p>
+					<p><a href={props.link} target="_blank" rel="noopener noreferrer"> See on Unsplash</a></p>
 				</div>
 			</div>
 		</div>

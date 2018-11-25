@@ -1,3 +1,20 @@
+/* ===HEADER-STYLES=== */
+
+.header {
+	width: 620px;
+	margin: 0 auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+.score-board {
+	width: 620px;
+	margin: 0 auto;
+	text-align: center;
+}
+
 .wrapper {
   margin: 0 auto;
   display: flex;

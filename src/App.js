@@ -4,6 +4,7 @@ import axios from 'axios';
 import cred from './Components/cred';
 import CardListOne from './Components/CardListOne';
 import CardListTwo from './Components/CardListTwo';
+import SearchForm from './Components/SearchForm';
 
 import './App.css';
 
@@ -710,8 +711,7 @@ class App extends Component {
 ],
     cardsCopy : [],
     loadingState : false,
-    score : 0,
-    attempts : 0,
+    moves : 0,
     clicked : null,
     firstGuess : null,
     secondGuess : null,
@@ -841,7 +841,7 @@ match = () => {
   }
 
   resetCards = () => {
-    this.setState({clicked : null, attempts : this.state.attempts + 1, firstGuess : null, secondGuess : null, update : true});
+    this.setState({clicked : null, moves : this.state.moves + 1, firstGuess : null, secondGuess : null, update : true});
     var selected = document.getElementsByClassName('is-flipped');
     console.log('resetcards',selected);
     //Remove class is-flipped
@@ -854,13 +854,16 @@ match = () => {
 
     return (
       <div className="App">
+        <div className="header">
+        <h1>Main Title</h1>
+        <SearchForm />
+        </div>
         <div className="wrapper">
           <CardListOne dataOne={this.state.cards} update={this.state.update} className={'card'} clickHandler={this.clickHandler} />
           <CardListTwo dataTwo={this.state.cardsCopy} update={this.state.update} className={'card'} clickHandler={this.clickHandler} />
         </div>
         <div className="score-board">
-          <h3>Attempts: {this.state.attempts}</h3>
-          <h3>Score: {this.state.score}</h3>
+          <h3>{this.state.moves === 1 ? '1 move' : this.state.moves + ' moves'}</h3>
         </div>
       </div>
     );
