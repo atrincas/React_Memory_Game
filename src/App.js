@@ -5,6 +5,7 @@ import cred from './Components/cred';
 import CardListOne from './Components/CardListOne';
 import CardListTwo from './Components/CardListTwo';
 import SearchForm from './Components/SearchForm';
+import Timer from './Components/Timer';
 
 import './App.css';
 
@@ -716,7 +717,8 @@ class App extends Component {
     firstGuess : null,
     secondGuess : null,
     activeCard : 100,
-    update : false
+    update : false,
+    startTime : null
     }
 this.clickHandler = this.clickHandler.bind(this);
   }
@@ -759,6 +761,10 @@ componentDidUpdate(prevProps,prevState) {
 }
 
 clickHandler = (e) => {
+    //Timer will start counting after first click:
+    if(!this.state.startTime) {
+      this.setState({startTime : true});
+    }
     // Add class is-flipped to turn front card 180 degrees:
     e.currentTarget.classList.toggle('is-flipped');
 
@@ -864,6 +870,7 @@ match = () => {
         </div>
         <div className="score-board">
           <h3>{this.state.moves === 1 ? '1 move' : this.state.moves + ' moves'}</h3>
+          <Timer />
         </div>
       </div>
     );
