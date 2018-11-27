@@ -5,7 +5,7 @@ import cred from './Components/cred';
 import CardListOne from './Components/CardListOne';
 import CardListTwo from './Components/CardListTwo';
 import SearchForm from './Components/SearchForm';
-import Timer from './Components/Timer';
+import Timer from './Components/Timer/Timer';
 
 import './App.css';
 
@@ -718,20 +718,13 @@ class App extends Component {
     secondGuess : null,
     activeCard : 100,
     update : false,
-    startTime : null
+    startGame : false
     }
 this.clickHandler = this.clickHandler.bind(this);
   }
 
-componentWillMount() {
-  console.log('willmount',this.state.cards);
-
-  //Make a copy of the cards array and shuffle both arrays:
-  var arr = this.state.cards,
-      arr2 = arr.slice();
-  this.shuffle(arr,'cards');
-  this.shuffle(arr2,'cardsCopy');
-  this.handleUpdate();
+componentWillMount() { 
+  this.initGame();
 
   // axios
   //   .get(
@@ -760,10 +753,19 @@ componentDidUpdate(prevProps,prevState) {
   console.log('didupdate', this.state.cardsCopy);
 }
 
+initGame = () => {
+  //Make a copy of the cards array and shuffle both arrays:
+  var arr = this.state.cards,
+      arr2 = arr.slice();
+  this.shuffle(arr,'cards');
+  this.shuffle(arr2,'cardsCopy');
+  this.handleUpdate();
+}
+
 clickHandler = (e) => {
     //Timer will start counting after first click:
-    if(!this.state.startTime) {
-      this.setState({startTime : true});
+    if(!this.state.startGame) {
+      this.setState({startGame : true});
     }
     // Add class is-flipped to turn front card 180 degrees:
     e.currentTarget.classList.toggle('is-flipped');
@@ -848,12 +850,29 @@ match = () => {
 
   resetCards = () => {
     this.setState({clicked : null, moves : this.state.moves + 1, firstGuess : null, secondGuess : null, update : true});
+    //Remove class is-flipped:
     var selected = document.getElementsByClassName('is-flipped');
-    console.log('resetcards',selected);
-    //Remove class is-flipped
     while(selected.length > 0) {
       selected[0].classList.remove('is-flipped');
     }
+  }
+
+  resetGame = () => {
+    console.log('reset the game');
+    this.setState({clicked : null, moves : 0, firstGuess : null, secondGuess : null, update : false});
+    //Remove class is-flipped:
+    var selectIsFlipped = document.getElementsByClassName('is-flipped');
+    while(selectIsFlipped.length > 0) {
+      selectIsFlipped[0].classList.remove('is-flipped');
+    }
+    //Remove class match:
+    var selectMatch = document.getElementsByClassName('match');
+    while(selectMatch.length > 0) {
+      selectMatch[0].classList.remove('match');
+    }
+
+    this.setState({startGame : false});
+    this.initGame();
   }
 
   render() {
@@ -870,7 +889,8 @@ match = () => {
         </div>
         <div className="score-board">
           <h3>{this.state.moves === 1 ? '1 move' : this.state.moves + ' moves'}</h3>
-          <Timer />
+          <Timer startGame={this.state.startGame} />
+          <button onClick={this.resetGame}>Restart Game</button>
         </div>
       </div>
     );
