@@ -12,18 +12,29 @@ class CardListTwo extends React.Component {
 		this.state = {
 			results : this.props.dataTwo,
 			clickHandler : this.props.clickHandler,
-			className : this.props.className,
-			update : this.props.update
+			className : this.props.className
 		}
 	}
 
-	shouldComponentUpdate() {
+	static defaultProps = {
+    	startGame : false
+  	};
+
+	shouldComponentUpdate(nextProps, nextState) {
 	  //Makes sure the component CardList only re-renders when cards has to be resetted:
-	  if(!this.state.update) {
-	    return true;
-	  } else {
-	    return false;
-	  }
+	  // if(!this.state.update) {
+	  //   return true;
+	  // } else {
+	  //   return false;
+	  // }
+
+	  // if(this.props.dataTwo !== nextProps.dataTwo) {
+	  // 	return true;
+	  // } else {
+	  // 	return false;
+	  // }
+
+	  return this.props.startGame !== nextProps.startGame;
 	}
 	
 	render() {

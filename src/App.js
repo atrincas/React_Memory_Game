@@ -9,13 +9,9 @@ import Timer from './Components/Timer/Timer';
 
 import './App.css';
 
-
-class App extends Component {
-
-  constructor(props) {
-  super(props);
-  this.state = {
-    cards : [
+function getDefaultState() {
+  return {
+     cards : [
     {
     "id": "Frerby5o1T4",
     "created_at": "2017-04-25T02:23:49-04:00",
@@ -716,14 +712,19 @@ class App extends Component {
     clicked : null,
     firstGuess : null,
     secondGuess : null,
-    activeCard : 100,
-    update : false,
     startGame : false
-    }
-this.clickHandler = this.clickHandler.bind(this);
+  }
+}
+
+class App extends Component {
+
+  constructor(props) {
+  super(props);
+  this.state = getDefaultState();
+  this.clickHandler = this.clickHandler.bind(this);
   }
 
-componentWillMount() { 
+componentWillMount() {
   this.initGame();
 
   // axios
@@ -753,13 +754,12 @@ componentDidUpdate(prevProps,prevState) {
   console.log('didupdate', this.state.cardsCopy);
 }
 
-initGame = () => {
+initGame() {
   //Make a copy of the cards array and shuffle both arrays:
   var arr = this.state.cards,
       arr2 = arr.slice();
   this.shuffle(arr,'cards');
   this.shuffle(arr2,'cardsCopy');
-  this.handleUpdate();
 }
 
 clickHandler = (e) => {
@@ -815,12 +815,6 @@ handleIncreaseClicked() {
     });
   }
 
-handleUpdate() {
-    this.setState((prevState,props) => {
-      return {update : !prevState.update};
-    });
-  }
-
 match = () => {
     var firstGuess = this.state.firstGuess,
         secondGuess = this.state.secondGuess;
@@ -849,7 +843,7 @@ match = () => {
   }
 
   resetCards = () => {
-    this.setState({clicked : null, moves : this.state.moves + 1, firstGuess : null, secondGuess : null, update : true});
+    this.setState({clicked : null, moves : this.state.moves + 1, firstGuess : null, secondGuess : null});
     //Remove class is-flipped:
     var selected = document.getElementsByClassName('is-flipped');
     while(selected.length > 0) {
@@ -859,7 +853,7 @@ match = () => {
 
   resetGame = () => {
     console.log('reset the game');
-    this.setState({clicked : null, moves : 0, firstGuess : null, secondGuess : null, update : false});
+    this.setState({clicked : null, moves : 0, firstGuess : null, secondGuess : null});
     //Remove class is-flipped:
     var selectIsFlipped = document.getElementsByClassName('is-flipped');
     while(selectIsFlipped.length > 0) {
@@ -871,7 +865,7 @@ match = () => {
       selectMatch[0].classList.remove('match');
     }
 
-    this.setState({startGame : false});
+    this.setState(getDefaultState());
     this.initGame();
   }
 
@@ -884,8 +878,8 @@ match = () => {
         <SearchForm />
         </div>
         <div className="wrapper">
-          <CardListOne dataOne={this.state.cards} update={this.state.update} className={'card'} clickHandler={this.clickHandler} />
-          <CardListTwo dataTwo={this.state.cardsCopy} update={this.state.update} className={'card'} clickHandler={this.clickHandler} />
+          <CardListOne dataOne={this.state.cards} startGame={this.state.startGame} className={'card'} clickHandler={this.clickHandler} />
+          <CardListTwo dataTwo={this.state.cardsCopy} startGame={this.state.startGame} className={'card'} clickHandler={this.clickHandler} />
         </div>
         <div className="score-board">
           <h3>{this.state.moves === 1 ? '1 move' : this.state.moves + ' moves'}</h3>
