@@ -742,18 +742,6 @@ componentWillMount() {
 
 }
 
-componentDidMount() {
-  console.log('didmount')
-}
-
-componentWillUpdate() {
-  console.log('willupdate');
-}
-
-componentDidUpdate(prevProps,prevState) {
-  console.log('didupdate', this.state.cardsCopy);
-}
-
 initGame() {
   //Make a copy of the cards array and shuffle both arrays:
   var arr = this.state.cards,
@@ -763,26 +751,31 @@ initGame() {
 }
 
 clickHandler = (e) => {
-    //Timer will start counting after first click:
-    if(!this.state.startGame) {
-      this.setState({startGame : true});
-    }
-    // Add class is-flipped to turn front card 180 degrees:
-    e.currentTarget.classList.toggle('is-flipped');
 
-    // Check if firstGuess is not set:
-    if(!this.state.clicked) {
-      var firstGuess = e.currentTarget.dataset.card;
-      this.handleIncreaseClicked();
-      this.setState({firstGuess});
-    } else {
-      console.log('this is the second guess');
-      var secondGuess = e.currentTarget.dataset.card;
-      this.handleIncreaseClicked();
-      //SetState the secondGuess and use callback to run this.match():
-      this.setState({secondGuess},() => this.match());
-    }   
-  }
+    // Make sure the timer will start:
+    if(!this.state.startGame) {
+      this.setState({startGame : true, firstClick : true});
+    }
+
+    // Make sure max of 2 cards should be turned at the same time:
+    if(this.state.clicked < 2) {
+      // Add class is-flipped to turn front card 180 degrees:
+      e.currentTarget.classList.toggle('is-flipped');
+
+      // Check if firstGuess is not set:
+      if(!this.state.clicked) {
+        var firstGuess = e.currentTarget.dataset.card;
+        this.handleIncreaseClicked();
+        this.setState({firstGuess});
+      } else {
+        var secondGuess = e.currentTarget.dataset.card;
+        this.handleIncreaseClicked();
+        //SetState the secondGuess and use callback to run this.match():
+        this.setState({secondGuess},() => this.match());
+      } 
+    }
+ 
+}
 
 shuffle = (array, cards) => {
   var arr = array;
@@ -809,7 +802,7 @@ shuffle = (array, cards) => {
   
 }
 
-handleIncreaseClicked() {
+handleIncreaseClicked = () => {
     this.setState((prevState,props) => {
       return {clicked : prevState.clicked + 1};
     });
@@ -852,7 +845,6 @@ match = () => {
   }
 
   resetGame = () => {
-    console.log('reset the game');
     this.setState({clicked : null, moves : 0, firstGuess : null, secondGuess : null});
     //Remove class is-flipped:
     var selectIsFlipped = document.getElementsByClassName('is-flipped');

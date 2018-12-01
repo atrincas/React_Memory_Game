@@ -1,13 +1,8 @@
-import React, {Proptypes, Component} from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 
 import timeFormat from '../utils/timeFormat';
 
 class Counter extends Component {
-
-	// static propTypes = {
-	// 	time : React.Proptypes.number.isRequired
-	// };
 
 	static defaultProps = {
 		time : 0

@@ -12,8 +12,7 @@ class CardListOne extends React.Component {
 		this.state = {
 			results : this.props.dataOne,
 			clickHandler : this.props.clickHandler,
-			className : this.props.className,
-			update : this.props.update
+			className : this.props.className
 		}
 	}
 
@@ -34,17 +33,13 @@ class CardListOne extends React.Component {
 	  // } else {
 	  // 	return false;
 	  // }
-	  return this.props.startGame !== nextProps.startGame;
-	}
 
-	componentWillReceiveProps(nextProps) {
-		if(this.props.dataOne !== nextProps.dataOne) {
-			console.log('props has changed');
-		}
-	}
-
-	componentWillUpdate() {
-		console.log('CardListOne:',this.state.results);
+	  if(!this.props.startGame) {
+	  	return false;
+	  } else {
+	  	return this.props.startGame !== nextProps.startGame;
+	  }
+	  
 	}
 
 	render() {

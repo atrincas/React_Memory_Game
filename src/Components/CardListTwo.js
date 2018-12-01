@@ -34,7 +34,18 @@ class CardListTwo extends React.Component {
 	  // 	return false;
 	  // }
 
-	  return this.props.startGame !== nextProps.startGame;
+	  if(!this.props.startGame) {
+	  	return false;
+	  } else {
+	  	return this.props.startGame !== nextProps.startGame;
+	  }
+	}
+
+	componentWillUpdate(nextProps,nextState) {
+		// Make sure Card component is assigned new value:
+		if(this.props.dataTwo !== nextProps.dataTwo) {
+			this.setState({results : nextProps.dataTwo});
+		}
 	}
 	
 	render() {
