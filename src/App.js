@@ -725,9 +725,16 @@ class App extends Component {
   this.clickHandler = this.clickHandler.bind(this);
   }
 
-componentDidUpdate() {
+componentDidUpdate(nextProps, nextState) {
   if(this.state.cards.length > 0 && !this.state.loadingState) {
     this.initGame();
+  }
+
+  if(this.state.loadingState !== nextState.loadingState) {
+    this.timeout = setTimeout(() => {
+          this.toggleAll();
+        },1000);
+    this.toggleAll();
   }
   
 }
