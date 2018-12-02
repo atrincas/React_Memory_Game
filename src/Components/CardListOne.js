@@ -21,25 +21,19 @@ class CardListOne extends React.Component {
   	};
 
 	shouldComponentUpdate(nextProps, nextState) {
-	  //Makes sure the component CardList only re-renders when cards has to be resetted:
-	  // if(!this.state.update) {
-	  //   return true;
-	  // } else {
-	  //   return false;
-	  // }
-
-	  // if(this.props.dataOne !== nextProps.dataOne) {
-	  // 	return true;
-	  // } else {
-	  // 	return false;
-	  // }
-
 	  if(!this.props.startGame) {
 	  	return false;
 	  } else {
 	  	return this.props.startGame !== nextProps.startGame;
 	  }
 	  
+	}
+
+	componentWillUpdate(nextProps,nextState) {
+		// Make sure Card component is assigned new value:
+		if(this.props.dataOne !== nextProps.dataOne) {
+			this.setState({results : nextProps.dataOne});
+		}
 	}
 
 	render() {
