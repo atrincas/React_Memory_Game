@@ -19,6 +19,7 @@ class SearchForm extends React.Component {
 
 	render() {
 		return (
+			<div>
 			<form className="search-form" onSubmit={this.handleSubmit}>
 				<input
 					type="search"
@@ -29,6 +30,8 @@ class SearchForm extends React.Component {
 				/>
 				<button type="submit" id="submit" className="search-button">Search</button>
 			</form>
+			<p>{this.props.message}</p>
+			</div>
 			);
 	}
 }

@@ -95,7 +95,12 @@ h1 {
 /* ===SCOREBOARD-STYLES=== */
 
 .score-board {
-	width: 620px;
-	margin: 0 auto;
-	text-align: center;
+	display: flex;
+	justify-content: space-around;
 }
+
+.buttons {
+	display: flex;
+	flex-direction: column;
+}
+

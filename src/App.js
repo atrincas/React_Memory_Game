@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ReactModal from 'react-modal';
 
 import cred from './Components/cred';
 import CardListOne from './Components/CardListOne';
@@ -709,11 +710,14 @@ function getDefaultState() {
     cards : [],
     cardsCopy : [],
     loadingState : false,
+    notEnoughSearchResults : false,
+    category : '',
     moves : 0,
     clicked : null,
     firstGuess : null,
     secondGuess : null,
-    startGame : false
+    startGame : false,
+    finishedGame : false
   }
 }
 
@@ -726,17 +730,32 @@ class App extends Component {
   }
 
 componentDidUpdate(nextProps, nextState) {
+  // Check to see if cards array has a value:
   if(this.state.cards.length > 0 && !this.state.loadingState) {
-    this.initGame();
+    // If cards array is less than 6 show message that not enough search results found:
+    if(this.state.cards.length < 6 && !this.state.notEnoughSearchResults) {
+        console.log('not enough search results');
+        this.setState({notEnoughSearchResults : true});
+    } else { // Initialize Game:
+        this.initGame();
+      }
   }
 
   if(this.state.loadingState !== nextState.loadingState) {
     this.timeout = setTimeout(() => {
           this.toggleAll();
-        },1000);
+        },2000);
     this.toggleAll();
   }
   
+}
+
+shouldComponentUpdate(nextProps,nextState) {
+  if(this.state.notEnoughSearchResults) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 initGame() {
@@ -843,7 +862,7 @@ match = () => {
   }
 
   newGame = () => {
-    this.setState({clicked : null, moves : 0, firstGuess : null, secondGuess : null});
+    this.setState({clicked : null, moves : 0, firstGuess : null, secondGuess : null, notEnoughSearchResults : false});
     //Remove class is-flipped:
     var selectIsFlipped = document.getElementsByClassName('is-flipped');
     while(selectIsFlipped.length > 0) {
@@ -874,7 +893,7 @@ match = () => {
         `https://api.unsplash.com/search/photos/?page=1&per_page=6&query=${query}&client_id=${cred._applicationId}`
       )
       .then(data => {
-        this.setState({ cards: data.data.results});
+        this.setState({ cards: data.data.results, category : query, notEnoughSearchResults : false});
       })
       .catch(err => {
         console.log('Error happened during fetching!', err);
@@ -902,24 +921,32 @@ match = () => {
     return (
       <div className="App">
         <div className="header">
-        <h1>Main Title</h1>
-        <SearchForm onSearch={this.performSearch} />
+        <h1></h1>
+        
+          {!this.state.loadingState && this.state.notEnoughSearchResults ?
+            <SearchForm onSearch={this.performSearch}
+              message={'Not enough search results, please try again.'} /> : 
+              !this.state.loadingState ?
+            <SearchForm onSearch={this.performSearch}
+            message={'Please enter a search term'} /> : 
+            <div className="score-board">
+            <p id="category">Category: {this.state.category}</p>
+            <div className="buttons">
+              <button onClick={this.toggleAll}>Toggle All</button>
+              <button onClick={this.newGame}>New Game</button>
+              <button onClick={this.restartGame}>Restart Game</button>
+            </div>
+            <Timer startGame={this.state.startGame} moves={this.state.moves} />
+            </div>}
         </div>
         
-          {!this.state.loadingState ? <div className="wrapper"><p>Please enter a search term</p></div>
+          {!this.state.loadingState ? null
             : <div className="wrapper">
               <CardListOne dataOne={this.state.cards} startGame={this.state.startGame} className={'card'} clickHandler={this.clickHandler} />
               <CardListTwo dataTwo={this.state.cardsCopy} startGame={this.state.startGame} className={'card'} clickHandler={this.clickHandler} />
               </div>
           }
-      
-        <div className="score-board">
-          <h3>{this.state.moves === 1 ? '1 move' : this.state.moves + ' moves'}</h3>
-          <Timer startGame={this.state.startGame} />
-          <button onClick={this.toggleAll}>Toggle All</button>
-          <button onClick={this.newGame}>New Game</button>
-          <button onClick={this.restartGame}>Restart Game</button>
-        </div>
+        <ReactModal isOpen={false} />
       </div>
     );
   }

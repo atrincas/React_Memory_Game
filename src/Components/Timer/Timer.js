@@ -58,11 +58,8 @@ class Timer extends Component {
 
     return (
       <div className="Timer">
-
-        <h1></h1>
-
-        <Counter time={ time } />
-
+        <p>Elapsed Time: <Counter time={ time } /></p>
+        <p>{this.props.moves === 1 ? '1 move' : this.props.moves + ' moves'}</p>
       </div>
     );
   }

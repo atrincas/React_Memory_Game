@@ -10,12 +10,7 @@ class Counter extends Component {
 
 	render() {
 		const { time } = this.props;
-
-		return (
-			<div className="Counter">
-				{timeFormat(time)}
-			</div>
-			);
+		return timeFormat(time)
 	}
 }
 

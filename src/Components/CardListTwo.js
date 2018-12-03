@@ -30,7 +30,6 @@ class CardListTwo extends React.Component {
 
 	componentWillUpdate(nextProps,nextState) {
 		// Make sure Card component is assigned new value:
-		console.log('willupdate cardstwo');
 		if(this.props.dataTwo !== nextProps.dataTwo) {
 			this.setState({results : nextProps.dataTwo});
 		}
