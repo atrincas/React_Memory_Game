@@ -6,7 +6,7 @@ import Config from './constants/Config';
 function getDefaultState() {
   return {
     isRunning : false,
-    time      : 0  
+    time      : 0 
   }
 }
 
@@ -32,8 +32,14 @@ class Timer extends Component {
       if(!this.state.isRunning) {
         this.start();
       } else if(this.state.isRunning) {
+        this.getTotalTime();
         this.reset();
       }
+  }
+
+  componentWillUnmount() {
+    this.getTotalTime();
+    clearInterval(this.timeRef);
   }
 
   start() {
@@ -50,6 +56,11 @@ class Timer extends Component {
     this.setState(getDefaultState(), () => {
       clearInterval(this.timerRef);
     });
+  }
+
+  getTotalTime = () => {
+    var endTime = this.state.time;
+    this.props.totalTime(endTime);
   }
 
   render() {

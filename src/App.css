@@ -99,7 +99,7 @@ h1 {
 	justify-content: space-around;
 }
 
-.buttons {
+.header-buttons {
 	display: flex;
 	flex-direction: column;
 }
