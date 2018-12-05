@@ -41,6 +41,7 @@ class App extends Component {
   }
 
 componentDidUpdate(nextProps, nextState) {
+  console.log('didupdate')
   // Check to see if cards array has a value:
   if(this.state.cards.length > 0 && !this.state.loadingState) {
     // If cards array is less than 6 show message that not enough search results found:
@@ -61,6 +62,10 @@ componentDidUpdate(nextProps, nextState) {
     this.toggleAll();
   }
   
+}
+
+componentWillUpdate() {
+  console.log('willupdate')
 }
 
 shouldComponentUpdate(nextProps,nextState) {
@@ -263,8 +268,7 @@ match = () => {
           {!this.state.loadingState && this.state.notEnoughSearchResults ?
             <SearchForm onSearch={this.performSearch} /> : 
               !this.state.loadingState ?
-            <SearchForm onSearch={this.performSearch}
-            message={'Please enter a search term'} /> : 
+            <SearchForm onSearch={this.performSearch}/> : 
             <div className="score-board">
               <div className="category shadow">
                 <p><b>Category:</b></p> 
