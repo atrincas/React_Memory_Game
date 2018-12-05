@@ -28,7 +28,8 @@ function getDefaultState() {
     exitGame : false,
     endTime : null,
     showStats : false,
-    showNoresults : false
+    showNoresults : false,
+    showGameCompleted : false
   }
 }
 
@@ -60,6 +61,13 @@ componentDidUpdate(nextProps, nextState) {
           this.toggleAll();
         },1500);
     this.toggleAll();
+  }
+
+  // Check to see if the game is completed:
+  if(this.state.score !== nextState.score) {
+    if(this.state.score === 6) {
+      this.gameCompleted();
+    }
   }
   
 }
@@ -238,6 +246,11 @@ match = () => {
     this.setState({endTime});
   }
 
+  gameCompleted = () => {
+    console.log('game completed!');
+    this.setState({startGame : false, showGameCompleted : true});
+  }
+
   handleCloseStats = () => {
     
     if(this.state.exitGame) {
@@ -303,6 +316,15 @@ match = () => {
         <ReactModal className="modal" overlayClassName="overlay" isOpen={this.state.showNoresults} onAfterOpen={this.handleNoResults}>
         <p>Not enough search results to make game. Please try again.</p>
         <button onClick={this.handleCloseNoResults}>Ok</button>
+        </ReactModal>
+        <ReactModal className="modal" overlayClassName="overlay" isOpen={this.state.showGameCompleted}>
+          <h3>You completed the game!</h3>
+          <ul>
+            <li>Total moves: {this.state.moves}</li>
+            <li>Total time: {this.state.endTime}</li>
+          </ul>
+          <button>New Game</button>
+          <button>Restart Game</button>
         </ReactModal>
       </div>
     );
