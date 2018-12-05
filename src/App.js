@@ -23,6 +23,7 @@ function getDefaultState() {
     clicked : null,
     firstGuess : null,
     secondGuess : null,
+    firstStart : false,
     startGame : false,
     exitGame : false,
     endTime : null,
@@ -40,13 +41,12 @@ class App extends Component {
   }
 
 componentDidUpdate(nextProps, nextState) {
-  console.log('didupdate')
   // Check to see if cards array has a value:
   if(this.state.cards.length > 0 && !this.state.loadingState) {
     // If cards array is less than 6 show message that not enough search results found:
     if(this.state.cards.length < 6 && !this.state.showNoresults) {
         console.log('not enough search results');
-        this.setState({showNoresults : true});
+        this.setState({notEnoughSearchResults : true, showNoresults : true});
     } else { // Initialize Game:
         this.setState({firstStart : true})
         this.initGame();
@@ -239,8 +239,8 @@ match = () => {
       // If New Game button is pressed than getDefaultState to start at the beginning:
       this.setState(getDefaultState());
     } else {
-      // Restart button is pressed. Set showStats to false and make sure moves and endTime is back to 0:
-      this.setState({showStats : false, moves : 0, endTime : null});
+      // Restart button is pressed. Set showStats to false and make sure moves, score and endTime is back to 0:
+      this.setState({showStats : false, moves : 0, score : 0, endTime : null});
     }
   }
 
@@ -248,27 +248,36 @@ match = () => {
     this.setState(getDefaultState());
   }
 
+  handleNoResults = () => {
+    // Prevent from double clicking on OK:
+      this.setState(getDefaultState());
+  }
+
   render() {
 
     return (
       <div className="App">
         <div className="header">
-        <h1></h1>
-        
+        <h1>Main Title</h1>
+
           {!this.state.loadingState && this.state.notEnoughSearchResults ?
-            <SearchForm onSearch={this.performSearch}
-              message={'Not enough search results, please try again.'} /> : 
+            <SearchForm onSearch={this.performSearch} /> : 
               !this.state.loadingState ?
             <SearchForm onSearch={this.performSearch}
             message={'Please enter a search term'} /> : 
             <div className="score-board">
-            <p id="category">Category: {this.state.category}</p>
-            <div className="header-buttons">
-              <button onClick={this.toggleAll}>Toggle All</button>
-              <button onClick={this.newGame}>New Game</button>
-              <button onClick={this.restartGame}>Restart Game</button>
-            </div>
-            <Timer startGame={this.state.startGame} moves={this.state.moves} totalTime={this.totalTime} />
+              <div className="category shadow">
+                <p><b>Category:</b></p> 
+                <p>{this.state.category}</p>
+              </div>
+              <div className="header-buttons">
+                <button onClick={this.toggleAll}>Toggle All</button>
+                <button onClick={this.newGame}>New Game</button>
+                <button onClick={this.restartGame}>Restart Game</button>
+              </div>
+              <div className="game-stats shadow">
+                <Timer startGame={this.state.startGame} moves={this.state.moves} totalTime={this.totalTime} />
+              </div>
             </div>}
         </div>
         
@@ -287,7 +296,7 @@ match = () => {
           </ul>
           <button onClick={this.handleCloseStats}>OK</button>
         </ReactModal>
-        <ReactModal className="modal" overlayClassName="overlay" isOpen={this.state.showNoresults}>
+        <ReactModal className="modal" overlayClassName="overlay" isOpen={this.state.showNoresults} onAfterOpen={this.handleNoResults}>
         <p>Not enough search results to make game. Please try again.</p>
         <button onClick={this.handleCloseNoResults}>Ok</button>
         </ReactModal>

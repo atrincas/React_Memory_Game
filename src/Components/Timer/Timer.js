@@ -68,8 +68,8 @@ class Timer extends Component {
     const { isRunning, time } = this.state;
 
     return (
-      <div className="Timer">
-        <p>Elapsed Time: <Counter time={ time } /></p>
+      <div className="timer">
+        <p><b>Elapsed Time:</b> <Counter time={ time } /></p>
         <p>{this.props.moves === 1 ? '1 move' : this.props.moves + ' moves'}</p>
       </div>
     );
