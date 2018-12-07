@@ -277,7 +277,7 @@ match = () => {
       <div className="App">
         <div className="header">
         <h1>Main Title</h1>
-
+        
           {!this.state.loadingState && this.state.notEnoughSearchResults ?
             <SearchForm onSearch={this.performSearch} /> : 
               !this.state.loadingState ?

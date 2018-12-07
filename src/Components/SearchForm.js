@@ -50,14 +50,14 @@ class SearchForm extends React.Component {
 					/>
 					<button type="submit" id="submit" className="search-button">Search</button>
 				</form>
-				<div>
-				<span>Trending searches:</span>
-				<ul>
-				{this.state.words.map((word, i) => {
-					
-					return (<li key={i}><a href="#" onClick={this.handleTrendingSearchWord}>{word}</a></li>);
-				})}
-				</ul>
+				<div id="trending-searches">
+					<span>Trending searches:</span>
+					<ul>
+					{this.state.words.map((word, i) => {
+						
+						return (<li key={i}><a href="#" onClick={this.handleTrendingSearchWord}>{word}</a></li>);
+					})}
+					</ul>
 				</div>
 				</div>
 			);

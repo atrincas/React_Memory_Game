@@ -38,6 +38,28 @@ h1 {
 	flex: 100%;
 }
 
+#trending-searches {
+	display: flex;
+	margin-top: 10px;
+}
+
+#trending-searches span {
+	font-size: 12px;
+	font-weight: bold;
+    color: #505739;
+}
+
+#trending-searches ul {
+	margin: -10px 0;
+    padding: 5px;
+}
+
+#trending-searches li {
+	display: inline;
+	list-style: none;
+	padding-right: 5px;
+}
+
 /* ===SCOREBOARD-STYLES=== */
 
 .score-board {
