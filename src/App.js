@@ -7,7 +7,7 @@ import CardListOne from './Components/CardListOne';
 import CardListTwo from './Components/CardListTwo';
 import SearchForm from './Components/SearchForm';
 import Timer from './Components/Timer/Timer';
-import timeFormat from './Components/Timer/utils/timeFormat';
+import timeFormatString from './Components/Timer/utils/timeFormatString';
 
 import './App.css';
 
@@ -242,7 +242,7 @@ match = () => {
 
   // Receive totalTime value from Timer component:
   totalTime = (val) => {
-    var endTime = timeFormat(val);
+    var endTime = timeFormatString(val);
     this.setState({endTime});
   }
 
@@ -277,7 +277,7 @@ match = () => {
       <div className="App">
         <div className="header">
         <h1>Main Title</h1>
-        
+
           {!this.state.loadingState && this.state.notEnoughSearchResults ?
             <SearchForm onSearch={this.performSearch} /> : 
               !this.state.loadingState ?
