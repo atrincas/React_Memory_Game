@@ -13,16 +13,16 @@ export default function timeFormat(miliseconds) {
 	// Assign the minute(s) string according to the amount:
 	if (mm > 1) {
 		mString = mm + ' minutes';
-	} else if (mm == 1) {
+	} else if (mm === 1) {
 		mString = mm + ' minute';
-	} else if (mm == 0) {
+	} else if (mm === 0) {
 		mString = null;
 	}
 
 	// Assign the minute(s) string according to the amount:
 	if (ss > 1) {
 		sString = ss + ' seconds';
-	} else if (ss == 1) {
+	} else if (ss === 1) {
 		sString = ss + ' second'
 	} else {
 		sString = null;
