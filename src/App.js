@@ -21,6 +21,7 @@ function getDefaultState() {
     moves : 0,
     score : 0,
     clicked : null,
+    clickedId : null,
     firstGuess : null,
     secondGuess : null,
     firstStart : false,
@@ -66,7 +67,9 @@ componentDidUpdate(nextProps, nextState) {
   // Check to see if the game is completed:
   if(this.state.score !== nextState.score) {
     if(this.state.score === 6) {
-      this.gameCompleted();
+      this.timeout = setTimeout(() => {
+          this.gameCompleted();
+        },1000);
     }
   }
   
@@ -100,23 +103,31 @@ clickHandler = (e) => {
       this.setState({startGame : true, firstClick : true});
     }
 
-    // Make sure max of 2 cards should be turned at the same time:
-    if(this.state.clicked < 2) {
-      // Add class is-flipped to turn front card 180 degrees:
-      e.currentTarget.classList.toggle('is-flipped');
+    // Get the value of data-id from the clicked card:
+    var clickedId = e.currentTarget.dataset.id;
+    
+    // Check to see if the card is not yet clicked:
+    if(clickedId !== this.state.clickedId) {
+      this.setState({clickedId})
+        // Make sure max of 2 cards should be turned at the same time:
+      if(this.state.clicked < 2) {
 
-      // Check if firstGuess is not set:
-      if(!this.state.clicked) {
-        var firstGuess = e.currentTarget.dataset.card;
-        this.handleIncreaseClicked();
-        this.setState({firstGuess});
-      } else {
-        var secondGuess = e.currentTarget.dataset.card;
-        this.handleIncreaseClicked();
-        //SetState the secondGuess and use callback to run this.match():
-        this.setState({secondGuess},() => this.match());
-      } 
-    }
+        // Add class is-flipped to turn front card 180 degrees:
+        e.currentTarget.classList.toggle('is-flipped');
+
+        // Check if firstGuess is not set:
+        if(!this.state.clicked) {
+          var firstGuess = e.currentTarget.dataset.card;
+          this.handleIncreaseClicked();
+          this.setState({firstGuess});
+        } else {
+          var secondGuess = e.currentTarget.dataset.card;
+          this.handleIncreaseClicked();
+          //SetState the secondGuess and use callback to run this.match():
+          this.setState({secondGuess},() => this.match());
+        } 
+      }
+    } 
  
 }
 
@@ -179,7 +190,7 @@ match = () => {
   }
 
   resetCards = () => {
-    this.setState({clicked : null, moves : this.state.moves + 1, firstGuess : null, secondGuess : null});
+    this.setState({clicked : null, clickedId : null, moves : this.state.moves + 1, firstGuess : null, secondGuess : null});
     //Remove class is-flipped:
     var selected = document.getElementsByClassName('is-flipped');
     while(selected.length > 0) {

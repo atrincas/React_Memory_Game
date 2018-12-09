@@ -1,8 +1,10 @@
 import React from 'react';
 
+const uuidv1 = require('uuid/v1');
+
 const Card = props =>
 	<div className="card-container">
-		<div className={props.className} onClick={props.onClick} data-card={props.id}>
+		<div className={props.className} onClick={props.onClick} data-card={props.id} data-id={uuidv1()}>
 			<div className="front"></div>
 			<div className="back">
 				<img src={props.url} alt="Memory Card" className="card-image" />

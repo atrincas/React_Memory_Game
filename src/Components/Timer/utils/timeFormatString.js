@@ -30,7 +30,7 @@ export default function timeFormat(miliseconds) {
 
 	// Assign the complete string:
 	if (mString && sString) {
-		cString = mString + ' and' + sString;
+		cString = mString + ' and ' + sString;
 	} else if (mString) {
 		cString = mString;
 	} else if (sString) {
