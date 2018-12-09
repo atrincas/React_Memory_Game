@@ -124,7 +124,7 @@ h1 {
 	flex-direction: column;
 }
 
-.header-buttons > button {
+.header-buttons button, .modal button {
 	-moz-box-shadow: 0px 1px 0px 0px #1c1b18;
 	-webkit-box-shadow: 0px 1px 0px 0px #1c1b18;
 	box-shadow: 0px 1px 0px 0px #1c1b18;
@@ -150,9 +150,10 @@ h1 {
 	margin: 2px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffffff;
+	outline: 0;
 }
 
-.header-buttons > button:hover {
+.header-buttons button:hover, .modal button:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ccc2a6), color-stop(1, #eae0c2));
 	background:-moz-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
 	background:-webkit-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
@@ -163,7 +164,7 @@ h1 {
 	background-color:#ccc2a6;
 }
 
-.header-buttons > button:active {
+.header-buttons button:active, .modal button:active {
 	position:relative;
 	top:1px;
 }
@@ -245,8 +246,9 @@ h1 {
     left: 200px;
     right: 200px;
     bottom: 200px;
-    border: 1px solid #ccc;
-    background: #fff;
+    border: 1px solid #505739;
+    background: #eae0c2;
+    color: #505739;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     border-radius: 4px;
