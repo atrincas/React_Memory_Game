@@ -40,15 +40,19 @@ class SearchForm extends React.Component {
 	render() {
 		return (
 			<div className="search-form">
-				<form onSubmit={this.handleSubmit}>
+				<form onSubmit={this.handleSubmit} className="search-bar-wrapper">
 					<input
 						type="search"
 						onChange={this.onSearchChange}
 						ref={input => (this.query = input)}
 						name="search"
+						className="search-bar-input"
 						placeholder="Search for a category..."
+						autocomplete="off"
 					/>
-					<button type="submit" id="submit" className="search-button">Search</button>
+					<button type="submit" id="submit" className="search-bar-button">
+						<i class="fas fa-search"></i>
+					</button>
 				</form>
 				<div id="trending-searches">
 					<span>Trending searches:</span>

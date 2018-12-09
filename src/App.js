@@ -276,7 +276,7 @@ match = () => {
     return (
       <div className="App">
         <div className="header">
-        <h1>Main Title</h1>
+        <h1>Memory Game</h1>
 
           {!this.state.loadingState && this.state.notEnoughSearchResults ?
             <SearchForm onSearch={this.performSearch} /> : 
@@ -314,7 +314,7 @@ match = () => {
           <button onClick={this.handleCloseStats}>OK</button>
         </ReactModal>
         <ReactModal className="modal" overlayClassName="overlay" isOpen={this.state.showNoresults} onAfterOpen={this.handleNoResults}>
-        <p>Not enough search results to make game. Please try again.</p>
+        <p>Not enough search results to make a game. Please try again.</p>
         <button onClick={this.handleCloseNoResults}>Ok</button>
         </ReactModal>
         <ReactModal className="modal" overlayClassName="overlay" isOpen={this.state.showGameCompleted}>
