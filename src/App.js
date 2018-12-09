@@ -300,7 +300,7 @@ match = () => {
             <SearchForm onSearch={this.performSearch}/> : 
             <div className="score-board">
               <div className="category shadow">
-                <p><b>Category:</b></p> 
+                <p><b>Theme:</b></p> 
                 <p>{this.state.category}</p>
               </div>
               <div className="header-buttons">

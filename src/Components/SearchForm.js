@@ -39,7 +39,7 @@ class SearchForm extends React.Component {
 
 	render() {
 		return (
-			<div className="search-form">
+			<div className="start-screen">
 				<form onSubmit={this.handleSubmit} className="search-bar-wrapper">
 					<input
 						type="search"
@@ -47,7 +47,7 @@ class SearchForm extends React.Component {
 						ref={input => (this.query = input)}
 						name="search"
 						className="search-bar-input"
-						placeholder="Search for a category..."
+						placeholder="Search for a theme..."
 						autocomplete="off"
 					/>
 					<button type="submit" id="submit" className="search-bar-button">
@@ -62,6 +62,11 @@ class SearchForm extends React.Component {
 						return (<li key={i}><a href="#" onClick={this.handleTrendingSearchWord}>{word}</a></li>);
 					})}
 					</ul>
+				</div>
+				<div className="about">
+					<h4>About</h4>
+					<p>This Game is made with React library and the Unsplash API.</p>
+					<p>You can use your own theme by searching through the Unsplash database.Have fun!</p>
 				</div>
 				</div>
 			);
