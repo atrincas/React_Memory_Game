@@ -258,8 +258,11 @@ match = () => {
   }
 
   gameCompleted = () => {
-    console.log('game completed!');
     this.setState({startGame : false, showGameCompleted : true});
+  }
+
+  handleCloseGameCompleted = () => {
+    this.setState(getDefaultState());
   }
 
   handleCloseStats = () => {
@@ -334,8 +337,7 @@ match = () => {
             <li>Total moves: {this.state.moves}</li>
             <li>Total time: {this.state.endTime}</li>
           </ul>
-          <button>New Game</button>
-          <button>Restart Game</button>
+          <button onClick={this.handleCloseGameCompleted}>OK</button>
         </ReactModal>
       </div>
     );
