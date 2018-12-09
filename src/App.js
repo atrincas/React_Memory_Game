@@ -105,30 +105,32 @@ clickHandler = (e) => {
 
     // Get the value of data-id from the clicked card:
     var clickedId = e.currentTarget.dataset.id;
-    
-    // Check to see if the card is not yet clicked:
-    if(clickedId !== this.state.clickedId) {
-      this.setState({clickedId})
-        // Make sure max of 2 cards should be turned at the same time:
-      if(this.state.clicked < 2) {
-
-        // Add class is-flipped to turn front card 180 degrees:
-        e.currentTarget.classList.toggle('is-flipped');
-
-        // Check if firstGuess is not set:
-        if(!this.state.clicked) {
-          var firstGuess = e.currentTarget.dataset.card;
-          this.handleIncreaseClicked();
-          this.setState({firstGuess});
-        } else {
-          var secondGuess = e.currentTarget.dataset.card;
-          this.handleIncreaseClicked();
-          //SetState the secondGuess and use callback to run this.match():
-          this.setState({secondGuess},() => this.match());
-        } 
-      }
-    } 
  
+    // Check to see if the card is not already assigned as matched:
+    if(!e.currentTarget.classList.contains('match')) {
+      // Check to see if the card is not yet clicked:
+      if(clickedId !== this.state.clickedId) {
+        this.setState({clickedId})
+          // Make sure max of 2 cards should be turned at the same time:
+        if(this.state.clicked < 2) {
+
+          // Add class is-flipped to turn front card 180 degrees:
+          e.currentTarget.classList.toggle('is-flipped');
+
+          // Check if firstGuess is not set:
+          if(!this.state.clicked) {
+            var firstGuess = e.currentTarget.dataset.card;
+            this.handleIncreaseClicked();
+            this.setState({firstGuess});
+          } else {
+            var secondGuess = e.currentTarget.dataset.card;
+            this.handleIncreaseClicked();
+            //SetState the secondGuess and use callback to run this.match():
+            this.setState({secondGuess},() => this.match());
+          } 
+        }
+      } 
+    }
 }
 
 shuffle = (array, cards) => {
