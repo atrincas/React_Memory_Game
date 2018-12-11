@@ -66,7 +66,7 @@ class SearchForm extends React.Component {
 				<div className="about">
 					<h4>About</h4>
 					<p>This Game is made with React library and the Unsplash API.</p>
-					<p>You can use your own theme by searching through the Unsplash database.Have fun!</p>
+					<p>You can use your own theme by searching through the Unsplash database. Have fun!</p>
 				</div>
 				</div>
 			);
