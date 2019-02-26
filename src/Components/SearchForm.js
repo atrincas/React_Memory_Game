@@ -32,8 +32,7 @@ class SearchForm extends React.Component {
 	}
 
 	handleTrendingSearchWord = e => {
-		console.log(e.target.text);
-		var word = e.target.text;
+		var word = e.currentTarget.firstChild.nodeValue;
 		this.props.onSearch(word);
 	}
 
