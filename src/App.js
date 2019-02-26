@@ -313,7 +313,7 @@ match = () => {
               <CardListTwo dataTwo={this.state.cardsCopy} startGame={this.state.startGame} className={'card'} clickHandler={this.clickHandler} />
               </div>
           }
-        <ReactModal className="modal" overlayClassName="overlay" isOpen={this.state.showStats}>
+        <ReactModal className="modal" ariaHideApp={false} overlayClassName="overlay" isOpen={this.state.showStats}>
           <h3>Stats:</h3>
           <ul>
             <li>Total moves: {this.state.moves}</li>
@@ -322,11 +322,11 @@ match = () => {
           </ul>
           <button onClick={this.handleCloseStats}>OK</button>
         </ReactModal>
-        <ReactModal className="modal" overlayClassName="overlay" isOpen={this.state.showNoresults} onAfterOpen={this.handleNoResults}>
+        <ReactModal className="modal" ariaHideApp={false} overlayClassName="overlay" isOpen={this.state.showNoresults} onAfterOpen={this.handleNoResults}>
         <p>Not enough search results to make a game. Please try again.</p>
         <button onClick={this.handleCloseNoResults}>Ok</button>
         </ReactModal>
-        <ReactModal className="modal" overlayClassName="overlay" isOpen={this.state.showGameCompleted}>
+        <ReactModal className="modal" ariaHideApp={false} overlayClassName="overlay" isOpen={this.state.showGameCompleted}>
           <h3>You completed the game!</h3>
           <ul>
             <li>Total moves: {this.state.moves}</li>
