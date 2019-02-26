@@ -43,12 +43,10 @@ class App extends Component {
   }
 
 componentDidUpdate(nextProps, nextState) {
-  console.log('didupdate')
   // Check to see if cards array has a value:
   if(this.state.cards.length > 0 && !this.state.loadingState) {
     // If cards array is less than 6 show message that not enough search results found:
     if(this.state.cards.length < 6 && !this.state.showNoresults) {
-        console.log('not enough search results');
         this.setState({notEnoughSearchResults : true, showNoresults : true});
     } else { // Initialize Game:
         this.setState({firstStart : true})
@@ -73,10 +71,6 @@ componentDidUpdate(nextProps, nextState) {
     }
   }
   
-}
-
-componentWillUpdate() {
-  console.log('willupdate')
 }
 
 shouldComponentUpdate(nextProps,nextState) {
@@ -223,7 +217,6 @@ match = () => {
   }
 
   performSearch = (query) => {
-    console.log('performSearch');
     if(query) {
       axios
       .get(
