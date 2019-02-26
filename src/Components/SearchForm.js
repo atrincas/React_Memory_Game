@@ -51,7 +51,7 @@ class SearchForm extends React.Component {
 						autoComplete="off"
 					/>
 					<button type="submit" id="submit" className="search-bar-button">
-						<i class="fas fa-search"></i>
+						<i className="fas fa-search"></i>
 					</button>
 				</form>
 				<div id="trending-searches">
