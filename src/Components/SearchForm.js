@@ -48,7 +48,7 @@ class SearchForm extends React.Component {
 						name="search"
 						className="search-bar-input"
 						placeholder="Search for a theme..."
-						autocomplete="off"
+						autoComplete="off"
 					/>
 					<button type="submit" id="submit" className="search-bar-button">
 						<i class="fas fa-search"></i>
