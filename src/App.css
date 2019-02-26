@@ -75,7 +75,7 @@ h1 {
 }
 
 #trending-searches ul {
-	margin: -10px 0;
+	margin: -9px 0;
     padding: 5px;
 }
 
@@ -83,6 +83,23 @@ h1 {
 	display: inline;
 	list-style: none;
 	padding-right: 5px;
+}
+
+.link-button {
+	background-color: transparent;
+	color: inherit;
+	border: none;
+	cursor: pointer;
+	font-style: italic;
+	text-decoration: underline;
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+.link-button:hover,
+.link-button:focus {
+	text-decoration: none;
 }
 
 .about {
