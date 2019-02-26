@@ -65,7 +65,7 @@ class Timer extends Component {
 
   render() {
 
-    const { isRunning, time } = this.state;
+    const { time } = this.state;
 
     return (
       <div className="timer">
