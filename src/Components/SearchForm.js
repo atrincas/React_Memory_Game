@@ -13,17 +13,6 @@ class SearchForm extends React.Component {
 		this.setState({searchText : e.target.value});
 	}
 
-	componentWillMount() {
-	}
-
-	componentDidUpate() {
-		console.log('didupdate')
-	}
-
-	componentWillUpdate() {
-		console.log('willupdate')
-	}
-
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.onSearch(this.query.value);
