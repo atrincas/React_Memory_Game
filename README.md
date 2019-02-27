@@ -6,7 +6,21 @@ A simple memory game where you can choose a custom theme for the memory cards.
 
 ### Prerequisites
 
-This application makes use of the Unsplash API. In order to fetch images from their database succesfully you need to have an `Api-Key`. You can sign-up for a free developers-account at Unsplash. After that you get your own `Acces Key` & `Secret Key`. These are to be used inside `cred.js` found in the Components folder.
+This application makes use of the Unsplash API. In order to fetch images from their database succesfully you need to have an `Api-Key`. You can sign-up for a free developers-account at Unsplash.
+After you cloned the repo create a new file `cred.js` and save it inside the Components folder. Than paste the following code inside:
+
+```
+import Unsplash from 'unsplash-js';
+
+// Paste your Acces Key and Secret Key inside the quotation marks:
+
+const cred = new Unsplash({
+	applicationId : "",
+	secret : ""
+});
+
+export default cred;
+```
 
 - npm
 
