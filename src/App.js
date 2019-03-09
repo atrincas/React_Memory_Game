@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ReactModal from 'react-modal';
 
-import cred from './Components/cred';
 import CardListOne from './Components/CardListOne';
 import CardListTwo from './Components/CardListTwo';
 import SearchForm from './Components/SearchForm';
@@ -33,6 +32,8 @@ function getDefaultState() {
     showGameCompleted : false
   }
 }
+
+const ApiKey=process.env.REACT_APP_API_KEY;
 
 class App extends Component {
 
@@ -220,7 +221,7 @@ match = () => {
     if(query) {
       axios
       .get(
-        `https://api.unsplash.com/search/photos/?page=1&per_page=6&query=${query}&client_id=${cred._applicationId}`
+        `https://api.unsplash.com/search/photos/?page=1&per_page=6&query=${query}&client_id=${ApiKey}`
       )
       .then(data => {
         this.setState({ cards: data.data.results, category : query, notEnoughSearchResults : false});
