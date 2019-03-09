@@ -9,8 +9,7 @@
     "react-modal": "^3.6.1",
     "react-scripts": "^2.1.8",
     "unsplash-js": "^4.8.0",
-    "uuid": "^3.3.2",
-    "webpack-dev-server": "^3.2.1"
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
