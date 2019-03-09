@@ -17,7 +17,6 @@ class SearchForm extends React.Component {
 		e.preventDefault();
 		this.props.onSearch(this.query.value);
 		e.currentTarget.reset();
-		console.log('form submitted');
 	}
 
 	handleTrendingSearchWord = e => {
