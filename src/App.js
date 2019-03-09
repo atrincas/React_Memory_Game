@@ -224,7 +224,11 @@ match = () => {
         `https://api.unsplash.com/search/photos/?page=1&per_page=6&query=${query}&client_id=${ApiKey}`
       )
       .then(data => {
-        this.setState({ cards: data.data.results, category : query, notEnoughSearchResults : false});
+        if(data.data.results.length === 0) {
+          this.setState({notEnoughSearchResults : true});
+        } else {
+          this.setState({ cards: data.data.results, category : query, notEnoughSearchResults : false});
+        }
       })
       .catch(err => {
         console.log('Error happened during fetching!', err);
@@ -323,10 +327,6 @@ match = () => {
           </ul>
           <button onClick={this.handleCloseStats}>OK</button>
         </ReactModal>
-        <ReactModal className="modal" ariaHideApp={false} overlayClassName="overlay" isOpen={this.state.showNoresults} onAfterOpen={this.handleNoResults}>
-        <p>Not enough search results to make a game. Please try again.</p>
-        <button onClick={this.handleCloseNoResults}>Ok</button>
-        </ReactModal>
         <ReactModal className="modal" ariaHideApp={false} overlayClassName="overlay" isOpen={this.state.showGameCompleted}>
           <h3>You completed the game!</h3>
           <ul>
@@ -334,6 +334,10 @@ match = () => {
             <li>Total time: {this.state.endTime}</li>
           </ul>
           <button onClick={this.handleCloseGameCompleted}>OK</button>
+        </ReactModal>
+        <ReactModal className="modal" ariaHideApp={false} overlayClassName="overlay" isOpen={this.state.notEnoughSearchResults} onAfterOpen={this.handleNoResults}>
+          <h3>Not enough search results to make a game. Please try again.</h3>
+          <button onClick={this.handleCloseNoResults}>OK</button>
         </ReactModal>
       </div>
     );
