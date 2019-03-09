@@ -7,19 +7,13 @@ A simple memory game where you can choose a custom theme for the memory cards.
 ### Prerequisites
 
 This application makes use of the Unsplash API. In order to fetch images from their database succesfully you need to have an `Api-Key`. You can sign-up for a free developers-account at Unsplash.
-After you cloned the repo create a new file `cred.js` and save it inside the Components folder. Copy-Paste the following code inside the cred.js file:
+After you cloned the repo create a new file `.env` and save it inside the project folder. Copy-Paste the following code inside the .env file:
 
 ```
-import Unsplash from 'unsplash-js';
+REACT_APP_API_KEY=yourApiKey
 
-// Paste your Acces Key and Secret Key inside the quotation marks:
-
-const cred = new Unsplash({
-	applicationId : "",
-	secret : ""
-});
-
-export default cred;
+// Example:
+REACT_APP_API_KEY=1ab23bfsf333
 ```
 
 ### Installing
