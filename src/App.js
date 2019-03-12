@@ -318,6 +318,7 @@ match = () => {
               <CardListTwo dataTwo={this.state.cardsCopy} startGame={this.state.startGame} className={'card'} clickHandler={this.clickHandler} />
               </div>
           }
+        <div className="footer"></div>
         <ReactModal className="modal" ariaHideApp={false} overlayClassName="overlay" isOpen={this.state.showStats}>
           <h3>Stats:</h3>
           <ul>
