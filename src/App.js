@@ -8,6 +8,7 @@ import SearchForm from './Components/SearchForm';
 import Timer from './Components/Timer/Timer';
 import timeFormatString from './Components/Timer/utils/timeFormatString';
 
+import githubLogo from './imgs/githubLogo.png';
 import './App.css';
 
 function getDefaultState() {
@@ -318,7 +319,14 @@ match = () => {
               <CardListTwo dataTwo={this.state.cardsCopy} startGame={this.state.startGame} className={'card'} clickHandler={this.clickHandler} />
               </div>
           }
-        <div className="footer"></div>
+        <div className="footer">
+          <ul>
+            <li>Code & design by Adam Trincas.</li>
+          </ul>
+          <ul>
+            <li><a href="https://github.com/atrincas/React_Memory_Game" target="_blank" rel="noopener noreferrer"><img src={githubLogo} alt="github"></img></a></li>
+          </ul>
+        </div>
         <ReactModal className="modal" ariaHideApp={false} overlayClassName="overlay" isOpen={this.state.showStats}>
           <h3>Stats:</h3>
           <ul>
