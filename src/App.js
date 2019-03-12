@@ -324,7 +324,7 @@ match = () => {
             <li>Code & design by Adam Trincas.</li>
           </ul>
           <ul>
-            <li><a href="https://github.com/atrincas/React_Memory_Game" target="_blank" rel="noopener noreferrer"><img src={githubLogo} alt="github"></img></a></li>
+            <li><a href="https://github.com/atrincas/React_Memory_Game" target="_blank" rel="noopener noreferrer"><img src={githubLogo} alt="github" height="16" width="16"></img></a></li>
           </ul>
         </div>
         <ReactModal className="modal" ariaHideApp={false} overlayClassName="overlay" isOpen={this.state.showStats}>
