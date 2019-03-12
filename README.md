@@ -1,6 +1,7 @@
 # React Memory Game
 
 A simple memory game where you can choose a custom theme for the memory cards.
+[Live Demo](https://atrincas-memory-game.herokuapp.com).
 
 ## Installation and Setup Instructions
 
