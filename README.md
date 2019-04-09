@@ -3,6 +3,8 @@
 A simple memory game where you can choose a custom theme for the memory cards.
 [Live Demo](https://atrincas-memory-game.herokuapp.com).
 
+![Memory Game](./src/imgs/memory-game.png)
+
 ## Installation and Setup Instructions
 
 ### Prerequisites
