@@ -8,7 +8,8 @@ A simple memory game where you can choose a custom theme for the memory cards.
 ### What I learned
 
 * Setup a React App with create-react-app.
-* Use the data from the Unsplash API inside the UI.
+* Fetch and display images from the Unsplash API.
+* Make the user interface with CSS.
 * Use the React lifecycles: componentWillUpdate, shouldComponentUpdate
 * Implement functionality to the UI: onSearch, clickHandlers, handleSubmit + more custom functions.
 
